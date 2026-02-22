@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Application Tracker</title>
+
+  <!-- Font awesome  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+  <!-- Font Style -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+  <!-- DaisyUi and Tailwind css -->
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+
+  <style>
+    body {
+      font-family: 'Geist', sans-serif;
+      background-color: #F8FAFC;
+    }
+  </style>
+
+</head>
+
+<body class=" md:px-[245px] py-[60px] sm:px-[80px] py-[20px]">
+  <header>
+    <h1 class="text-3xl font-bold">Job Application Tracker</h1>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 mb-[30px]">
+      <div class="card-details  bg-white p-4 rounded-lg shadow-md ">
+        <h2>Total</h2>
+        <h1 class="text-xl">8</h1>
+      </div>
+      <div class="card-details  bg-white p-4 rounded-lg shadow-md">
+        <h2>Interview</h2>
+        <h1 class="text-green-500 font-bold text-xl">0</h1>
+      </div>
+      <div class="card-details  bg-white p-4 rounded-lg shadow-md">
+        <h2>Rejected</h2>
+        <h1 class="text-red-500 font-bold text-xl">0</h1>
+      </div>
+    </div>
+  </header>
+
+
+  <main>
+    <section class="flex justify-between mt-[30px]">
+      <div>
+        <h1 class="text-xl">Available Jobs</h1>
+      </div>
+      <div class="text-gray-500">8 jobs</div>
+    </section>
+
+
+    <section class="my-[20px] ">
+      <button class="btn btn-outline btn-primary w-[80px] h-[32px]">All</button>
+      <button class="btn btn-outline btn-primary w-[80px] h-[32px]">Interview</button>
+      <button class="btn btn-outline btn-primary w-[80px] h-[32px]">Rejected</button>
+    </section>
+
+    <section class="mt-[20px]">
+        <div class=" bg-white rounded-lg shadow-md  p-[60px] flex flex-col items-center" >
+          <img src="./images/jobs.png" alt="">
+          <h1 class="text-2xl mt-4">No jobs available</h1>
+          <p class="text-sm text-gray-400 mt-2 mb-6">Check back soon for new job opportunities</p>
+        </div>
+    </section>
+
+
+
+  </main>
+</body>
