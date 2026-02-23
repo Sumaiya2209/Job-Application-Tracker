@@ -13,6 +13,26 @@ function showOnly(id) {
     // Show selected section
     jobsSection.style.display = 'grid';
 
+    const jobNumb = document.getElementById('jobNumb');
+    const interviewCount = document.getElementById('interview').innerText;
+    const rejectedCount = document.getElementById('rejected').innerText;
+    if (id === 'interviewed_jobs') {
+        jobNumb.innerText = interviewCount + ' of';
+    } else if (id === 'rejected_jobs') {
+        jobNumb.innerText = rejectedCount + ' of';;
+    }
+    else {
+        jobNumb.innerText = '';
+    }
+    if(interviewCount === '0') {
+        document.getElementById('no_interview').style.display = 'grid';
+        document.getElementById('no_interview').classList.add('place-items-center');
+    }
+    if(rejectedCount === '0') {
+        document.getElementById('no_rejection').style.display = 'grid';
+        document.getElementById('no_rejection').classList.add('place-items-center');
+    }
+
 }
 
 /* get element innerText by clicking button  */
@@ -38,42 +58,80 @@ function updateJobStatus(jobId, status) {
 /* update interview count */
 function updateInterviewCount(job_status) {
     const jobStatus = document.getElementById(job_status);
-    console.log(jobStatus.innerText);
-    if (jobStatus.innerText !== 'Interview' && jobStatus.innerText === 'NOT APPLIED' && jobStatus.innerText !== 'Rejected') {
-        let count = document.getElementById('interview').innerText;
-        count = Number(count) + 1;
-        document.getElementById('interview').innerText = count;
+    let interview = Number(document.getElementById('interview').innerText);
+    let rejected = Number(document.getElementById('rejected').innerText);
+
+    if (jobStatus.innerText === 'NOT APPLIED') {
+        interview++;
     }
-} 
+    else if (jobStatus.innerText === 'Rejected') {
+        rejected--;
+        interview++;
+        document.getElementById('rejected').innerText = rejected;
+    }
+
+    document.getElementById('interview').innerText = interview;
+}
 
 /* update rejected count */
 function updateRejectedCount(job_status) {
     const jobStatus = document.getElementById(job_status);
-    console.log(jobStatus.innerText);   
-    if (jobStatus.innerText !== 'Rejected' && jobStatus.innerText === 'NOT APPLIED' && jobStatus.innerText !== 'Interview') {
-        let count = document.getElementById('rejected').innerText;
-        count = Number(count) + 1;
-        document.getElementById('rejected').innerText = count;
-    }   
+    let interview = Number(document.getElementById('interview').innerText);
+    let rejected = Number(document.getElementById('rejected').innerText);
+
+    if (jobStatus.innerText === 'NOT APPLIED') {
+        rejected++;
+    }
+    else if (jobStatus.innerText === 'Interview') {
+        interview--;
+        rejected++;
+        document.getElementById('interview').innerText = interview;
+    }
+
+    document.getElementById('rejected').innerText = rejected;
 }
 
 
+
+/* job card remove */
+function removeFromSection(sectionId, jobCardId) {
+    const section = document.getElementById(sectionId);
+    const existingCard = section.querySelector(`#${jobCardId}`);
+    if (existingCard) {
+        existingCard.remove();
+    }
+}
+
 /* update interview page  */
 function updateInterviewPage(jobCardId) {
-     const noInterview = document.getElementById('no_interview');
-  noInterview.style.display = 'none';
+    const interviewedJobs = document.getElementById('interviewed_jobs');
+    const noInterview = document.getElementById('no_interview');
 
-  const interviewedJobs = document.getElementById('interviewed_jobs');
-  interviewedJobs.style.display = 'grid';
-  interviewedJobs.appendChild(document.getElementById(jobCardId));
+    noInterview.style.display = 'none';
+
+    removeFromSection('rejected_jobs', jobCardId);
+    removeFromSection('interviewed_jobs', jobCardId);
+
+    const clonedCard = document.getElementById(jobCardId).cloneNode(true);
+
+    interviewedJobs.style.display = 'grid';
+    interviewedJobs.style.gap = '1.50rem';
+    interviewedJobs.appendChild(clonedCard);
 }
 
 /* update rejected page  */
 function updateRejectedPage(jobCardId) {
-     const noRejection = document.getElementById('no_rejection');
-  noRejection.style.display = 'none';
+    const noRejection = document.getElementById('no_rejection');
+    noRejection.style.display = 'none';
 
-  const rejectedJobs = document.getElementById('rejected_jobs');
-  rejectedJobs.style.display = 'grid';
-  rejectedJobs.appendChild(document.getElementById('job1_card'));
+    const rejectedJobs = document.getElementById('rejected_jobs');
+
+    removeFromSection('interviewed_jobs', jobCardId);
+    removeFromSection('rejected_jobs', jobCardId);
+
+    const clonedCard = document.getElementById(jobCardId).cloneNode(true);
+    rejectedJobs.style.display = 'grid';
+    rejectedJobs.style.gap = '1.50rem';
+    rejectedJobs.appendChild(clonedCard);
 }
+
