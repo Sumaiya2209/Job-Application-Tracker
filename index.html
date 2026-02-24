@@ -28,13 +28,13 @@
 
 </head>
 
-<body class=" lg:px-[245px] py-[60px] md:px-[80px] py-[20px]">
+<body class="py-[80px] px-[40px] lg:px-[245px] py-[60px]">
   <header>
     <h1 class="text-3xl font-bold">Job Application Tracker</h1>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 mb-[30px]">
       <div class="card-details  bg-white p-4 rounded-lg shadow-md ">
         <h2>Total</h2>
-        <h1 class="text-xl">8</h1>
+        <h1 id="total_jobs" class="text-xl">8</h1>
       </div>
       <div class="card-details  bg-white p-4 rounded-lg shadow-md">
         <h2>Interview</h2>
@@ -53,7 +53,7 @@
       <div>
         <h1 class="text-xl">Available Jobs</h1>
       </div>
-      <div class="text-gray-500"><span id="jobNumb"></span> 8 jobs</div>
+      <div class="text-gray-500"><span id="jobNumb"></span><span id="total">8 </span> jobs</div>
     </section>
 
 
@@ -70,7 +70,7 @@
 
       <div id="job1_card" class="card bg-white shadow-md rounded-xl border border-gray-200">
         <div class="card-body relative">
-          <button class="absolute right-4 top-4 text-gray-400 hover:text-red-500"><i
+          <button onclick="removeJob('job1_card', 'job1_status')" class="absolute right-4 top-4 text-gray-400 hover:text-red-500"><i
               class="fa-solid fa-trash"></i></button>
           <h2 class="text-lg font-semibold text-gray-800">Mobile First Corp</h2>
           <p class="text-sm text-gray-500">React Native Developer</p>
@@ -91,7 +91,7 @@
 
       <div id="job2_card" class="card bg-white shadow-md rounded-xl border border-gray-200">
         <div class="card-body relative">
-          <button class="absolute right-4 top-4 text-gray-400 hover:text-red-500"><i
+          <button onclick="removeJob('job2_card', 'job2_status')" class="absolute right-4 top-4 text-gray-400 hover:text-red-500"><i
               class="fa-solid fa-trash"></i></button>
           <h2 class="text-lg font-semibold text-gray-800">WebFlow Agency</h2>
           <p class="text-sm text-gray-500">Web Designer & Developer</p>
@@ -113,7 +113,7 @@
 
       <div id="job3_card" class="card bg-white shadow-md rounded-xl border border-gray-200">
         <div class="card-body relative">
-          <button class="absolute right-4 top-4 text-gray-400 hover:text-red-500"><i
+          <button onclick="removeJob('job3_card', 'job3_status')" class="absolute right-4 top-4 text-gray-400 hover:text-red-500"><i
               class="fa-solid fa-trash"></i></button>
           <h2 class="text-lg font-semibold text-gray-800">DataViz Solutions</h2>
           <p class="text-sm text-gray-500">Data Visualization Specialist</p>
@@ -134,7 +134,7 @@
 
       <div id="job4_card" class="card bg-white shadow-md rounded-xl border border-gray-200">
         <div class="card-body relative">
-          <button class="absolute right-4 top-4 text-gray-400 hover:text-red-500"><i
+          <button onclick="removeJob('job4_card', 'job4_status')" class="absolute right-4 top-4 text-gray-400 hover:text-red-500"><i
               class="fa-solid fa-trash"></i></button>
           <h2 class="text-lg font-semibold text-gray-800">CloudFirst Inc</h2>
           <p class="text-sm text-gray-500">Backend Developer</p>
@@ -155,7 +155,7 @@
 
       <div id="job5_card" class="card bg-white shadow-md rounded-xl border border-gray-200">
         <div class="card-body relative">
-          <button class="absolute right-4 top-4 text-gray-400 hover:text-red-500"><i
+          <button onclick="removeJob('job5_card', 'job5_status')" class="absolute right-4 top-4 text-gray-400 hover:text-red-500"><i
               class="fa-solid fa-trash"></i></button>
           <h2 class="text-lg font-semibold text-gray-800">Innovation Labs</h2>
           <p class="text-sm text-gray-500">UI/UX Engineer</p>
@@ -176,7 +176,7 @@
 
       <div id="job6_card" class="card bg-white shadow-md rounded-xl border border-gray-200">
         <div class="card-body relative">
-          <button class="absolute right-4 top-4 text-gray-400 hover:text-red-500"><i
+          <button onclick="removeJob('job6_card', 'job6_status')" class="absolute right-4 top-4 text-gray-400 hover:text-red-500"><i
               class="fa-solid fa-trash"></i></button>
           <h2 class="text-lg font-semibold text-gray-800">MegaCorp Solutions</h2>
           <p class="text-sm text-gray-500">JavaScript Developerr</p>
@@ -197,7 +197,7 @@
 
       <div id="job7_card" class="card bg-white shadow-md rounded-xl border border-gray-200">
         <div class="card-body relative">
-          <button class="absolute right-4 top-4 text-gray-400 hover:text-red-500"><i
+          <button onclick="removeJob('job7_card', 'job7_status')" class="absolute right-4 top-4 text-gray-400 hover:text-red-500"><i
               class="fa-solid fa-trash"></i></button>
           <h2 class="text-lg font-semibold text-gray-800">StartupXYZ</h2>
           <p class="text-sm text-gray-500">Full Stack Engineer</p>
@@ -218,7 +218,7 @@
 
       <div id="job8_card" class="card bg-white shadow-md rounded-xl border border-gray-200">
         <div class="card-body relative">
-          <button class="absolute right-4 top-4 text-gray-400 hover:text-red-500"><i
+          <button onclick="removeJob('job8_card', 'job8_status')" class="absolute right-4 top-4 text-gray-400 hover:text-red-500"><i
               class="fa-solid fa-trash"></i></button>
           <h2 class="text-lg font-semibold text-gray-800">TechCorp Industries</h2>
           <p class="text-sm text-gray-500">Senior Frontend Developer</p>
@@ -256,12 +256,6 @@
       </div>
     </section>
 
-
-    <script>
-      const intJob = document.getElementById('interviewed_jobs');
-      const child = intJob.childNodes;
-      console.log(child);
-    </script>
 
     <!-- Java Script -->
     <script src="machine.js"></script>
