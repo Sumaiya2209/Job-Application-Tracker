@@ -1,160 +1,107 @@
-document.getElementById('interview1').addEventListener('click', function () {
+const jobs = [1, 2, 3, 4, 5, 6, 7, 8];
 
-  const jobStatus = document.getElementById('job1_status');
-  if ( jobStatus.innerText === 'Interview') return;
-  updateInterviewCount('job1_status');
-  const jobCard = getClickedButton('interview1');
-  updateJobStatus('job1_status', jobCard);
+function showOnly(id) {
+  const jobsSection = document.getElementById(id);
 
-  updateInterviewPage('job1_card');
-});
+  const sections = ['all_jobs', 'interviewed_jobs', 'rejected_jobs'];
+  for (const section of sections) {
+    document.getElementById(section).style.display = 'none';
+  }
+  jobsSection.style.display = 'grid';
 
-document.getElementById('rejected1').addEventListener('click', function () {
-  const jobStatus = document.getElementById('job1_status');
-  if (jobStatus.innerText === 'Rejected') return;
-  updateRejectedCount('job1_status');
-  const jobCard = getClickedButton('rejected1');
-  updateJobStatus('job1_status', jobCard);
+  const jobNumb = document.getElementById('jobNumb');
+  const interviewCount = document.getElementById('interview').innerText;
+  const rejectedCount = document.getElementById('rejected').innerText;
+  if (id === 'interviewed_jobs') {
+    jobNumb.innerText = interviewCount + ' of ';
 
-  updateRejectedPage('job1_card');
-});
+    const interviewedJobs = document.getElementById("interviewed_jobs");
 
-document.getElementById('interview2').addEventListener('click', function () {
-  const jobStatus = document.getElementById('job2_status');
-  if (jobStatus.innerText === 'Interview') return;
-  updateInterviewCount('job2_status');
-  const jobCard = getClickedButton('interview2');
-  updateJobStatus('job2_status', jobCard);
+    const noInterview = document.getElementById("no_interview");
+    noInterview.style.display = 'grid'
+    noInterview.style.placeItems = 'center'
 
-  updateInterviewPage('job2_card');
-});
+    if (Number(interviewCount) > 0) {
+      noInterview.style.display = 'none'
+      for (const job of jobs) {
+        const intJob = document.getElementById('job' + job + '_status');
+        if (intJob.innerText == "Interview") {
+          const jobElement = document.getElementById('job' + job + '_card');
+          interviewedJobs.style.display = 'grid';
+          interviewedJobs.style.gap = '1.50rem';
+          interviewedJobs.appendChild(jobElement)
+        }
+      }
+    }
+  }
+  else if (id === 'rejected_jobs') {
+    jobNumb.innerText = rejectedCount + ' of ';
 
-document.getElementById('rejected2').addEventListener('click', function () {
-  const jobStatus = document.getElementById('job2_status');
-  if (jobStatus.innerText === 'Rejected') return;
-  updateRejectedCount('job2_status');
-  const jobCard = getClickedButton('rejected2');
-  updateJobStatus('job2_status', jobCard);
+    const rejectedJobs = document.getElementById("rejected_jobs");
 
-  updateRejectedPage('job2_card');
-});
+    const noReject = document.getElementById("no_rejection");
+    noReject.style.display = 'grid'
+    noReject.style.placeItems = 'center'
 
-document.getElementById('interview3').addEventListener('click', function () {
-  const jobStatus = document.getElementById('job3_status');
-  if (jobStatus.innerText === 'Interview') return;
-  updateInterviewCount('job3_status');
-  const jobCard = getClickedButton('interview3');
-  updateJobStatus('job3_status', jobCard);
+    if (Number(rejectedCount) > 0) {
+      const noReject = document.getElementById("no_rejection");
+      noReject.style.display = 'none'
+      for (const job of jobs) {
+        const intJob = document.getElementById('job' + job + '_status');
+        if (intJob.innerText == "Rejected") {
+          const jobElement = document.getElementById('job' + job + '_card');
+          rejectedJobs.style.display = 'grid';
+          rejectedJobs.style.gap = '1.50rem';
+          rejectedJobs.appendChild(jobElement)
+        }
+      }
+    }
+  }
+  else {
+    jobNumb.innerText = '';
+  }
+}
 
-  updateInterviewPage('job3_card');
-});
 
-document.getElementById('rejected3').addEventListener('click', function () {
-  const jobStatus = document.getElementById('job3_status');
-  if (jobStatus.innerText === 'Rejected') return;
-  updateRejectedCount('job3_status');
-  const jobCard = getClickedButton('rejected3');
-  updateJobStatus('job3_status', jobCard);
+for (const job of jobs) {
+  document.getElementById('interview' + job).addEventListener('click', function () {
+    const jobStatus = document.getElementById('job' + job + '_status');
+    let interview = Number(document.getElementById('interview').innerText);
+    let rejected = Number(document.getElementById('rejected').innerText);
 
-  updateRejectedPage('job3_card');
-});
+    if (jobStatus.innerText === 'NOT APPLIED') {
+      interview = interview + 1;
+    }
+    else if (jobStatus.innerText === 'Rejected') {
+      rejected = rejected - 1;
+      interview = interview + 1;
+      document.getElementById('rejected').innerText = rejected;
+    }
+    document.getElementById('interview').innerText = interview;
 
-document.getElementById('interview4').addEventListener('click', function () {
-  const jobStatus = document.getElementById('job4_status');
-  if (jobStatus.innerText === 'Interview') return;
-  updateInterviewCount('job4_status');
-  const jobCard = getClickedButton('interview4');
-  updateJobStatus('job4_status', jobCard);
+    jobStatus.innerText = "Interview";
+    jobStatus.classList.remove('text-gray-500', 'bg-gray-100', 'text-red-500', 'bg-red-100');
+    jobStatus.classList.add('text-green-500', 'bg-green-100', 'px-2', 'py-1', 'rounded');
+  })
 
-  updateInterviewPage('job4_card');
-});
+  document.getElementById('rejected' + job).addEventListener('click', function () {
+    const jobStatus = document.getElementById('job' + job + '_status');
+    let interview = Number(document.getElementById('interview').innerText);
+    let rejected = Number(document.getElementById('rejected').innerText);
 
-document.getElementById('rejected4').addEventListener('click', function () {
-  const jobStatus = document.getElementById('job4_status');
-  if (jobStatus.innerText === 'Rejected') return;
-  updateRejectedCount('job4_status');
-  const jobCard = getClickedButton('rejected4');
-  updateJobStatus('job4_status', jobCard);
+    if (jobStatus.innerText === 'NOT APPLIED') {
+      rejected = rejected + 1;
+    }
+    else if (jobStatus.innerText === 'Interview') {
+      interview = interview - 1;
+      rejected = rejected + 1;
+      document.getElementById('interview').innerText = interview;
+    }
 
-  updateRejectedPage('job4_card');
-});
+    document.getElementById('rejected').innerText = rejected;
 
-document.getElementById('interview5').addEventListener('click', function () {
-  const jobStatus = document.getElementById('job5_status');
-  if (jobStatus.innerText === 'Interview') return;
-  updateInterviewCount('job5_status');
-  const jobCard = getClickedButton('interview5');
-  updateJobStatus('job5_status', jobCard);
-
-  updateInterviewPage('job5_card');
-});
-
-document.getElementById('rejected5').addEventListener('click', function () {
-  const jobStatus = document.getElementById('job5_status');
-  if (jobStatus.innerText === 'Rejected') return;
-  updateRejectedCount('job5_status');
-  const jobCard = getClickedButton('rejected5');
-  updateJobStatus('job5_status', jobCard);
-
-  updateRejectedPage('job5_card');
-});
-
-document.getElementById('interview6').addEventListener('click', function () {
-  const jobStatus = document.getElementById('job6_status');
-  if (jobStatus.innerText === 'Interview') return;
-  updateInterviewCount('job6_status');
-  const jobCard = getClickedButton('interview6');
-  updateJobStatus('job6_status', jobCard);
-
-  updateInterviewPage('job6_card');
-});
-
-document.getElementById('rejected6').addEventListener('click', function () {
-  const jobStatus = document.getElementById('job6_status');
-  if (jobStatus.innerText === 'Rejected') return;
-  updateRejectedCount('job6_status');
-  const jobCard = getClickedButton('rejected6');
-  updateJobStatus('job6_status', jobCard);
-
-  updateRejectedPage('job6_card');
-});
-
-document.getElementById('interview7').addEventListener('click', function () {
-  const jobStatus = document.getElementById('job7_status');
-  if (jobStatus.innerText === 'Interview') return;
-  updateInterviewCount('job7_status');
-  const jobCard = getClickedButton('interview7');
-  updateJobStatus('job7_status', jobCard);
-
-  updateInterviewPage('job7_card');
-});
-
-document.getElementById('rejected7').addEventListener('click', function () {
-  const jobStatus = document.getElementById('job7_status');
-  if (jobStatus.innerText === 'Rejected') return;
-  updateRejectedCount('job7_status');
-  const jobCard = getClickedButton('rejected7');
-  updateJobStatus('job7_status', jobCard);
-
-  updateRejectedPage('job7_card');
-});
-
-document.getElementById('interview8').addEventListener('click', function () {
-  const jobStatus = document.getElementById('job8_status');
-  if (jobStatus.innerText === 'Interview') return;
-  updateInterviewCount('job8_status');
-  const jobCard = getClickedButton('interview8');
-  updateJobStatus('job8_status', jobCard);
-
-  updateInterviewPage('job8_card');
-});
-
-document.getElementById('rejected8').addEventListener('click', function () {
-  const jobStatus = document.getElementById('job8_status');
-  if (jobStatus.innerText === 'Rejected') return;
-  updateRejectedCount('job8_status');
-  const jobCard = getClickedButton('rejected8');
-  updateJobStatus('job8_status', jobCard);
-
-  updateRejectedPage('job8_card');
-});
+    jobStatus.innerText = "Rejected";
+    jobStatus.classList.remove('text-gray-500', 'bg-gray-100', 'text-green-500', 'bg-green-100');
+    jobStatus.classList.add('text-red-500', 'bg-red-100', 'px-2', 'py-1', 'rounded');
+  })
+}
